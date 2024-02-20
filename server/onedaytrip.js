@@ -42,6 +42,15 @@ app.post('/insert', async (req, res) => {
         res.status(500).json({ message: 'Error inserting data', error });
     }
 });
+//Create a GET route
+app.get('/fetch', async (req, res) => {
+    try {
+        const data = await Data.find();
+        res.status(200).json({ data });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching data', error });
+    }
+});
 
 // Start the server
 app.listen(3000, () => console.log('Server is running on port 3000'));
