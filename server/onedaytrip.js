@@ -51,6 +51,31 @@ app.get('/fetch', async (req, res) => {
         res.status(500).json({ message: 'Error fetching data', error });
     }
 });
+//create a edit route http://localhost:3000/edit/${editItem.id}
+app.put('/edit/:id', async (req, res) => {
+    const { id } = req.params;
+    const { SeqNo, Place, Distance } = req.body;
+
+    try {
+        await Data.findByIdAndUpdate(id, { SeqNo, Place, Distance });
+        res.status(200).json({ message: 'Data updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating data', error });
+    }
+}
+);
+//create a delete route http://localhost:3000/delete/${id}
+app.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        await Data.findByIdAndDelete(id);
+        res.status(200).json({ message: 'Data deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting data', error });
+    }
+}
+);
 
 // Start the server
 app.listen(3000, () => console.log('Server is running on port 3000'));
