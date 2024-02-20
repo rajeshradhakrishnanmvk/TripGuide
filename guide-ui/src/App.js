@@ -6,11 +6,20 @@ const App = () => {
   const [data, setData] = useState([]); // Initialize state for storing the data
   const [newItem, setNewItem] = useState({ SeqNo: '', Place: '', Distance: '' }); // Initialize state for new item
   const [editItem, setEditItem] = useState(null); // Initialize state for editing item
+  const [search, setSearch] = useState(''); // Initialize state for storing the search input
 
   useEffect(() => { // Use the useEffect hook to fetch data when the component mounts
     fetchData();
   }, []); // The empty array means this effect runs once when the component mounts
 
+  const handleSearch = (event) => { // Function to handle search input changes
+    setSearch(event.target.value); // Update the search state with the new input
+  };
+
+  const filteredData = data.filter((item) => { // Filter the data based on the search input
+    return item.Place.toLowerCase().includes(search.toLowerCase()); // Case-insensitive search
+  });
+  
   const fetchData = () => {
     axios.get('http://localhost:3000/fetch') // Send a GET request to the /fetch endpoint
       .then((response) => {
@@ -59,11 +68,12 @@ const App = () => {
 
   return (
     <div>
+    <input type="text" value={search} onChange={handleSearch} placeholder="Search by place" /> {/* Search input */}
       <ul> {/* Start of the list */}
-        {(Array.isArray(data) && data.length > 0) ? (
-          data.map((item, index) => ( // Map over the data array
-            <li key={index}> {/* Create a list item for each data item */}
-              {/* Display the data item properties */}
+        {(Array.isArray(filteredData) && filteredData.length > 0) ? (
+          filteredData.map((item, index) => ( // Map over the filteredData array
+            <li key={index}> {/* Create a list item for each filteredData item */}
+              {/* Display the filteredData item properties */}
               {/* Replace 'property1', 'property2', etc. with your actual property names */}
               {item.SeqNo}, {item.Place}, {item.Distance}
               <button onClick={() => handleEditItem(item)}>Edit</button> {/* Edit button */}
