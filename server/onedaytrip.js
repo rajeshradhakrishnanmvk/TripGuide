@@ -2,6 +2,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
+const Data = require('./DataModel');
 require('dotenv').config();
 
 
@@ -18,23 +20,30 @@ app.use(express.json());
 // Connect to MongoDB
 mongoose.connect(process.env.DB_URL);
 
-// Define a Mongoose schema
-const Schema = mongoose.Schema;
-const DataSchema = new Schema({
-    SeqNo: Number,
-    Place: String,
-    Distance: Number
-});
+// // Define a Mongoose schema
+// const Schema = mongoose.Schema;
+// const DataSchema = new Schema({
+//     SeqNo: Number,
+//     Place: String,
+//     Distance: Number,
+//     lat: Number,
+//     lng: Number,
+//     Start: String,
+//     Stop: String,
+//     TravelCost: Number,
+//     Date: String
+// });
 
-// Create a Mongoose model
-const Data = mongoose.model('Data', DataSchema);
+// // Create a Mongoose model
+// const Data = mongoose.model('Data', DataSchema);
 
 // Create a POST route
+// Import the Data model
 app.post('/insert', async (req, res) => {
-    const { SeqNo, Place, Distance } = req.body;
+    const { SeqNo, Place, Distance, lat, lng, Start, Stop, TravelCost, Date } = req.body;
 
     try {
-        const data = new Data({ SeqNo, Place, Distance });
+        const data = new Data({ SeqNo, Place, Distance, lat, lng, Start, Stop, TravelCost, Date });
         await data.save();
 
         res.status(200).json({ message: 'Data inserted successfully' });
@@ -42,6 +51,7 @@ app.post('/insert', async (req, res) => {
         res.status(500).json({ message: 'Error inserting data', error });
     }
 });
+
 //Create a GET route
 app.get('/fetch', async (req, res) => {
     try {
@@ -54,10 +64,10 @@ app.get('/fetch', async (req, res) => {
 //create a edit route http://localhost:3000/edit/${editItem.id}
 app.put('/edit/:id', async (req, res) => {
     const { id } = req.params;
-    const { SeqNo, Place, Distance } = req.body;
+    const { SeqNo, Place, Distance, lat, lng, Start, Stop, TravelCost, Date  } = req.body;
 
     try {
-        await Data.findByIdAndUpdate(id, { SeqNo, Place, Distance });
+        await Data.findByIdAndUpdate(id, { SeqNo, Place, Distance, lat, lng, Start, Stop, TravelCost, Date  });
         res.status(200).json({ message: 'Data updated successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Error updating data', error });

@@ -1,10 +1,11 @@
 // JavaScript (React)
 import React, { useEffect, useState } from 'react'; // Import React and hooks
 import axios from 'axios'; // Import axios for making HTTP requests
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'; // Import react-leaflet components
 
 const App = () => {
   const [data, setData] = useState([]); // Initialize state for storing the data
-  const [newItem, setNewItem] = useState({ SeqNo: '', Place: '', Distance: '' }); // Initialize state for new item
+  const [newItem, setNewItem] = useState({ SeqNo: '', Place: '', Distance: '', lat: '', lng: '', Start: '', Stop: '', TravelCost:'', Date:''}); // Initialize state for new item
   const [editItem, setEditItem] = useState(null); // Initialize state for editing item
   const [search, setSearch] = useState(''); // Initialize state for storing the search input
 
@@ -34,7 +35,7 @@ const App = () => {
     axios.post('http://localhost:3000/insert', newItem) // Send a POST request to the /add endpoint with the new item data
       .then(() => {
         fetchData(); // Fetch the updated data
-        setNewItem({ SeqNo: '', Place: '', Distance: '' }); // Reset the new item state
+        setNewItem({ SeqNo: '', Place: '', Distance: '', lat: '', lng: '', Start: '', Stop: '', TravelCost:'', Date:'' }); // Reset the new item state
       })
       .catch((error) => {
         console.error('Error:', error); // Log any errors
@@ -75,7 +76,7 @@ const App = () => {
             <li key={index}> {/* Create a list item for each filteredData item */}
               {/* Display the filteredData item properties */}
               {/* Replace 'property1', 'property2', etc. with your actual property names */}
-              {item.SeqNo}, {item.Place}, {item.Distance}
+              {item.SeqNo}, {item.Place}, {item.Distance}, {item.lat}, {item.lng}, {item.Start}, {item.Stop}, {item.TravelCost}, {item.Date}
               <button onClick={() => handleEditItem(item)}>Edit</button> {/* Edit button */}
               <button onClick={() => handleDeleteItem(item._id)}>Delete</button> {/* Delete button */}
             </li>
@@ -105,6 +106,42 @@ const App = () => {
           value={newItem.Distance}
           onChange={(e) => setNewItem({ ...newItem, Distance: e.target.value })}
         />
+        <input
+          type="text"
+          placeholder="Latitude"
+          value={newItem.lat}
+          onChange={(e) => setNewItem({ ...newItem, lat: e.target.value })}
+        />
+                <input
+          type="text"
+          placeholder="Longitude"
+          value={newItem.lng}
+          onChange={(e) => setNewItem({ ...newItem, lng: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Start"
+          value={newItem.Start}
+          onChange={(e) => setNewItem({ ...newItem, Start: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Stop"
+          value={newItem.Stop}
+          onChange={(e) => setNewItem({ ...newItem, Stop: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="TravelCost"
+          value={newItem.TravelCost}
+          onChange={(e) => setNewItem({ ...newItem, TravelCost: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Date"
+          value={newItem.Date}
+          onChange={(e) => setNewItem({ ...newItem, Date: e.target.value })}
+        />
         <button type="submit">Add</button>
       </form>
 
@@ -129,8 +166,59 @@ const App = () => {
             value={editItem.Distance}
             onChange={(e) => setEditItem({ ...editItem, Distance: e.target.value })}
           />
+           <input
+          type="text"
+          placeholder="Latitude"
+          value={newItem.lat}
+          onChange={(e) => setEditItem({ ...newItem, lat: e.target.value })}
+        />
+                <input
+          type="text"
+          placeholder="Longitude"
+          value={newItem.lng}
+          onChange={(e) => setEditItem({ ...newItem, lng: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Start"
+          value={newItem.Start}
+          onChange={(e) => setEditItem({ ...newItem, Start: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Stop"
+          value={newItem.Stop}
+          onChange={(e) => setEditItem({ ...newItem, Stop: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="TravelCost"
+          value={newItem.TravelCost}
+          onChange={(e) => setEditItem({ ...newItem, TravelCost: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Date"
+          value={newItem.Date}
+          onChange={(e) => setEditItem({ ...newItem, Date: e.target.value })}
+        />
           <button type="submit">Update</button>
         </form>
+      )}
+      {data.length > 0 && (
+        <MapContainer center={[data[0].lat, data[0].lng]} zoom={13} style={{ height: "100vh", width: "100%" }}> {/* Map container */}
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          /> {/* Tile layer */}
+          {data.map((item, index) => ( // Map over the data array
+            <Marker key={index} position={[item.lat, item.lng]}> {/* Marker for each data item */}
+              <Popup>
+                {item.Place}, {item.Start}, {item.Stop}, {item.TravelCost}, {item.Date} {/* Popup with data item properties */}
+              </Popup>
+            </Marker>
+          ))}
+        </MapContainer>
       )}
     </div>
   );
