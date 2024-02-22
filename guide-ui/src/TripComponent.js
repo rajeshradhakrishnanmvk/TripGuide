@@ -1,7 +1,8 @@
 // JavaScript (React)
 import React, { useEffect, useState } from 'react'; // Import React and hooks
 import axios from 'axios'; // Import axios for making HTTP requests
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'; // Import react-leaflet components
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'; // Import react-leaflet components
+
 
 
 const TripComponent = () => {
@@ -214,11 +215,22 @@ const TripComponent = () => {
           /> {/* Tile layer */}
           {data.map((item, index) => ( // Map over the data array
             <Marker key={index} position={[item.lat, item.lng]}> {/* Marker for each data item */}
-              <Popup>
-                {item.Place}, {item.Start}, {item.Stop}, {item.TravelCost}, {item.Date} {/* Popup with data item properties */}
-              </Popup>
+                <Popup>
+                    SeqNo: {item.SeqNo}, {item.Place}, {item.Start}, {item.Stop}, {item.TravelCost}, {item.Date} {/* Popup with data item properties */}
+                </Popup>
             </Marker>
           ))}
+            {/* Draw lines between markers */}
+            {data.map((item, index) => {
+                            if (index < data.length - 1) {
+                                const startPoint = [data[index].lat, data[index].lng];
+                                const endPoint = [data[index + 1].lat, data[index + 1].lng];
+                                const linePoints = [startPoint, endPoint];
+
+                                return <Polyline key={index} positions={linePoints} color="blue" />;
+                            }
+                            return null;
+                        })}
         </MapContainer>
       )}
     </div>

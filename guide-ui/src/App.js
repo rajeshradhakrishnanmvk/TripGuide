@@ -14,7 +14,7 @@ const App = () => {
       <div style={{ display: 'flex' }}> {/* Main content */}
         <nav style={{ marginRight: '1rem' }}> {/* Left menu */}
           <ul>
-            <li><Link to="/trip">Data</Link></li>
+            <li><Link to="/trip">Plan</Link></li>
             <li><Link to="/map">Map</Link></li>
           </ul>
         </nav>
