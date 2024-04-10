@@ -1,0 +1,22 @@
+[
+    {
+      "pattern": "文房具 (Stationery)",
+      "japanese": ["ペン (pen)", "鉛筆 (enpitsu)", "ノート (nooto)", "消しゴム (keshigomu)"],
+      "english": ["pen", "pencil", "notebook", "eraser"]
+    },
+    {
+      "pattern": "果物 (Fruits)",
+      "japanese": ["りんご (ringo)", "バナナ (banana)", "みかん (mikan)", "ぶどう (budou)"],
+      "english": ["apple", "banana", "mandarin orange", "grape"]
+    },
+    {
+      "pattern": "野菜 (Vegetables)",
+      "japanese": ["にんじん (ninjin)", "たまねぎ (tamanegi)", "じゃがいも (jagaimo)", "トマト (tomato)"],
+      "english": ["carrot", "onion", "potato", "tomato"] 
+    },
+    {
+      "pattern": "動作 (Actions)",
+      "japanese": ["歩く (aruku)", "話す (hanasu)", "読む (yomu)", "書く (kaku)"],
+      "english": ["to walk", "to talk", "to read", "to write"]
+    }
+  ]

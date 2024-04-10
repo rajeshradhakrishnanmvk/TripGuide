@@ -1,0 +1,22 @@
+[
+    {
+      "pattern": "数字 (Numbers)",
+      "japanese": ["一 (ichi)", "二 (ni)", "三 (san)", "四 (yon)"],
+      "english": ["one", "two", "three", "four"]
+    },
+    {
+      "pattern": "色 (Colors)",
+      "japanese": ["赤 (aka)", "青 (ao)", "黄色 (kiiro)", "白 (shiro)"],
+      "english": ["red", "blue", "yellow", "white"]
+    },
+    {
+      "pattern": "天気 (Weather)",
+      "japanese": ["晴れ (hare)", "曇り (kumori)", "雨 (ame)", "雪 (yuki)"],
+      "english": ["sunny", "cloudy", "rainy", "snowy"] 
+    },
+    {
+      "pattern": "動物 (Animals)",
+      "japanese": ["犬 (inu)", "猫 (neko)", "鳥 (tori)", "魚 (sakana)"],
+      "english": ["dog", "cat", "bird", "fish"]
+    }
+  ]
