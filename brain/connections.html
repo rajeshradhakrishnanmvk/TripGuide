@@ -6,9 +6,9 @@
         @import url("style.css");
     </style>
 </head>
-<body onload="fetchConnectionsFromDisk()">
+<body onload="fetchConnectionsFromAI()">
     <div class="container">
-        <h1>Connections Game</h1>
+        <h1 id="game_header">Connections Game</h1>
         <!-- Add your game board and cards here -->
         <div class="game-board">
             <div class="row">
@@ -43,12 +43,25 @@
         </div>
        
         <div class="submit-button">
-            <button onclick="dinkan()">Dinkan</button>
             <button onclick="submitGame()">Submit</button>
+            <button onclick="refreshPage()">Refresh</button>
         </div>
-        
+        <div class="conversation">
+            <!-- Add more messages here -->
+        </div>
+        <div class="submit-button">
+            <button id="play-btn">play</button>
+            <button id="pause-btn">pause</button>
+            <button id="resume-btn">resume</button>
+            <input type="range" id="speedRange" min="0.1" max="2" step="0.1" value="1">
+            <label for="speedRange">Speed</label>
+        </div>
+
     </div>
 
-    <script src="game.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/speech.js"></script>
 </body>
 </html>

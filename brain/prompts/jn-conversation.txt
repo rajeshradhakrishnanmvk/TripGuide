@@ -1,0 +1,23 @@
+Below is a conversation which include general greeting:
+
+紹介のあとで
+従者：おはようございます。
+皇帝：おはようございます。
+従者：御機嫌、こちらは マヤ・ミラーさんです。
+皇帝：初めまして。
+マヤ・ミラーです。
+アメリカから 来ました。
+どうぞ よろしく。
+皇帝：御機嫌いかがですか？
+どうぞ よろしく。
+
+Generate a converstaion between two fictional Japanese personal use the below context:
+- Japanese: きた , みなみ , ひがし , にし 
+- Context: Cardinal Directions
+- Use Minna no Nihongo Japanese book series
+- pick words from lesson 1 to lesson 25
+- for user who are attending N5 Japanese Langauage Proficiency Training exam
+- use only hiragana for Japanese words
+- respective Japanese words in hiragana, no kanji or katakana characters 
+- response should be only in JSON format
+- don't use romaji, parenthesis
