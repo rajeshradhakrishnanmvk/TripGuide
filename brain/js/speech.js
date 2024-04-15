@@ -1,60 +1,17 @@
-// JSON conversation data
-const conversationData = {
-    "conversation": [
-        {
-            "speaker": "ゆうた",
-            "text": "はなこさん、おはようございます。"
-        },
-        {
-            "speaker": "はなこ", 
-            "text": "おはようございます、ゆうたさん。"
-        },
-        {
-            "speaker": "ゆうた",
-            "text": "はなこさんは、どこから きましたか。"
-        },
-        {
-            "speaker": "はなこ",
-            "text": "わたしは、みなみから きました。"
-        },
-        {
-            "speaker": "ゆうた",
-            "text": "へえ、みなみですか。いいですね。" 
-        },
-        {
-            "speaker": "はなこ",
-            "text": "ゆうたさんは？"
-        },
-        {
-            "speaker": "ゆうた", 
-            "text": "ぼくは、きたから きました。"
-        },
-        {
-            "speaker": "はなこ",
-            "text": "きたは、さむいですか。" 
-        }, 
-        {
-            "speaker": "ゆうた",
-            "text": "ええ、ふゆは さむいです。"
-        },
-        {
-            "speaker": "はなこ",
-            "text": "そうですか。わたしは、ひがしから にしへ りょこうしたいです。"
-        },
-        {
-            "speaker": "ゆうた",
-            "text": "いいですね。たのしいですね。"
-        }
-    ]
-};
+
 
 
 // Function to populate conversation div from JSON content
-function populateConversation(conversationData) {
+function populateConversation() {
     const conversationDiv = document.querySelector('.conversation');
+    conversationDiv.innerHTML = ''; // Clear child elements
+    if (typeof conversationData === 'string') {
+        conversationData = JSON.parse(conversationData);
+    }
 
     conversationData.conversation.forEach(message => {
         const messageDiv = document.createElement('div');
+        console.log(message);
         messageDiv.classList.add('message');
 
         const senderSpan = document.createElement('span');
@@ -70,13 +27,14 @@ function populateConversation(conversationData) {
 
         conversationDiv.appendChild(messageDiv);
     });
+    const play_btn = document.querySelector('#play-btn');
+
+
+    //play
+    play_btn.addEventListener('click', () => speakConversation(1.3));
 }
-const play_btn = document.querySelector('#play-btn');
 const pause_btn = document.querySelector('#pause-btn');
 const resume_btn = document.querySelector('#resume-btn');
-
-//play
-play_btn.addEventListener('click', () => speakConversation(1.5));
 
 // Function to speak the conversation
 function speakConversation(speed) {

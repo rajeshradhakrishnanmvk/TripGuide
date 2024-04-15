@@ -1,5 +1,4 @@
-// Step 5 Global variable are set from Step 3
-let gl_pattern,gl_solutions,gl_meanings, gamecount=1, currentPage=1; // Declare a global variable
+
 
 // used in Step 2 shuffleTwoArrays calls shuffleTwoDimensionalArray
 // Step 8 B
@@ -100,12 +99,16 @@ function boardSetup() {
                     gameHeader.innerText = patternFound;
                     console.log("Pattern found:", patternFound);
                     // Reset clickedPositions after finding the pattern
+                    const jn_words = clickedPositions.map(pos => gamewords[i][j]);
                     clickedPositions = [];
-                }
-                else{
-                    var gameHeader = document.getElementById("game_header");
-                    gameHeader.innerText = "Keep clicking to select four consecutive positions.";
-                }
+                    fetchConversationFromLLM(patternFound, jn_words).then(conversationGeminiData => {
+                        if (conversationGeminiData) {
+                            conversationData = conversationGeminiData;
+                            populateConversation();
+                        }
+                    });
+                    
+                }   
             });
         }
     }
