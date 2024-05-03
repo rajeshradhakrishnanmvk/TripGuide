@@ -92,20 +92,29 @@ function boardSetup() {
     clickedPositions = [];
     const gameBoard = document.querySelector('.game-board');
     const rows = gameBoard.querySelectorAll('.row');
+    rows.forEach(row => {
+        while (row.firstChild) {
+            row.removeChild(row.firstChild);
+        }
+    });
     //const cards = gameBoard.querySelectorAll('.card');
 
     for (let i = 0; i < gamewords.length; i++) {
         const row = rows[i];
         const words = gamewords[i];
         for (let j = 0; j < words.length ; j++) {
-            const card = row.children[j];
+            const card = document.createElement('button');
+            card.classList.add('card');
+            card.textContent = 'Word ' + i + j;
+            row.appendChild(card);
+            //card = row.children[j];
             card.textContent = words[j];
             card.setAttribute('title', gamemeaning[i][j]);
             card.addEventListener('click', () => {
                 const i = Array.from(row.parentNode.children).indexOf(row);
                 const j = Array.from(row.children).indexOf(card);
                 //console.log(`Clicked on card at position (${i}, ${j})`);
-                
+                //console.log(clickedPositions);
                 // Store the clicked position
                 clickedPositions.push({ row: i, column: j });
                 // Add a class to change the background color of the clicked button
@@ -118,6 +127,10 @@ function boardSetup() {
                     console.log("Pattern found:", patternFound);
                     // Reset clickedPositions after finding the pattern
                     const jn_words = clickedPositions.map(pos => gamewords[i][j]);
+                    clickedPositions = [];
+                    // Remove the 'clicked' class from all cards
+                    const allCards = document.querySelectorAll('.card');
+                    allCards.forEach(card => card.classList.remove('clicked'));
                     clickedPositions = [];
                 }   
             });
@@ -145,21 +158,22 @@ const fetchConnectionsFromStorage = async (data) => {
     } 
     // Assuming the JSON has an array of objects with pattern, solutions, and meanings properties
     if (data && data.length > 0) {
+       // console.log("Data:", data);
         data.forEach(obj => {
             if (Array.isArray(obj.japanese)) {
                 pattern.push(obj.pattern.slice(0, 4));
             } else {
-                pattern.push(obj.pattern.split(", ").map(item => item.trim()).slice(0, 4));
+                pattern.push(obj.pattern.split(",").map(item => item.trim()).slice(0, 4));
             }
             if (Array.isArray(obj.japanese)) {
                 solutions.push(obj.japanese.slice(0, 4));
             } else {
-                solutions.push(obj.japanese.split(", ").map(item => item.trim()).slice(0, 4));
+                solutions.push(obj.japanese.split(",").map(item => item.trim()).slice(0, 4));
             }
             if (Array.isArray(obj.english)) {
                 meanings.push(obj.english.slice(0, 4));
             } else {
-                meanings.push(obj.english.split(", ").map(item => item.trim()).slice(0, 4));
+                meanings.push(obj.english.split(",").map(item => item.trim()).slice(0, 4));
             }
         });
     }

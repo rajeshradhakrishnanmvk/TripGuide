@@ -40,4 +40,11 @@ function nextPage() {
 
 function refreshPage(){
     location.reload();
+
+}
+
+function fetchGame()
+{
+    console.log("Fetching game...", gamecount);
+    backend(gamecount + 1);
 }

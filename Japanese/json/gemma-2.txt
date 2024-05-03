@@ -1,0 +1,62 @@
+{
+  "connections": [
+    {
+      "Pattern": "greetings and expressions",
+      "Japanese": "こんにちは, ありがとうございます, どういたしまして, おねがいします",
+      "English": "Hello, thank you, you're welcome, please"
+    },
+    {
+      "Pattern": "shopping terms",
+      "Japanese": "かばん, くつ, じてんしゃ, くるま",
+      "English": "bag, shoes, bicycle, car"
+    },
+    {
+      "Pattern": "price inquiries",
+      "Japanese": "いくら, やすい, たかい, ちょっと",
+      "English": "how much, cheap, expensive, a little"
+    },
+    {
+      "Pattern": "expressions of gratitude",
+      "Japanese": "ありがとう, どうも, 助かります, 感謝します",
+      "English": "thank you, thanks, it helps, I appreciate it"
+    }
+  ],
+  "conversation": [
+    {
+      "speaker": "Customer",
+      "japanese": "こんにちは,このかばんはいくらですか？",
+      "romaji": "Konnichiwa, kono kaban wa ikura desu ka?",
+      "english": "Hello, how much is this bag?"
+    },
+    {
+      "speaker": "Staff",
+      "japanese": "それは２０００円です。",
+      "romaji": "Sore wa nisen-en desu.",
+      "english": "That's 2000 yen."
+    },
+    {
+      "speaker": "Customer",
+      "japanese": "やすいですね,それをください。",
+      "romaji": "Yasui desu ne, sore o kudasai.",
+      "english": "It's cheap, I'll take it."
+    },
+    {
+      "speaker": "Staff",
+      "japanese": "ありがとうございます,お会計はこちらでお願いします。",
+      "romaji": "Arigatō gozaimasu, okaikei wa kochira de onegaishimasu.",
+      "english": "Thank you, please pay here."
+    },
+    {
+      "speaker": "Customer",
+      "japanese": "どうも,助かります。",
+      "romaji": "Dōmo, tasukarimasu.",
+      "english": "Thanks, it helps."
+    },
+    {
+      "speaker": "Staff",
+      "japanese": "またのご利用をお待ちしております。",
+      "romaji": "Mata no goriyō o omachi shiteorimasu.",
+      "english": "We look forward to serving you again."
+    }
+  ]
+}
