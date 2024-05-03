@@ -146,7 +146,10 @@ function saveToLocalStorage(key, data) {
 // Step 4
 function getFromLocalStorage(key) {
     const data = localStorage.getItem(key);
-    return JSON.parse(data);
+    if (data) {
+        return JSON.parse(data.toLowerCase());
+    }
+    return null;
 }
 // Step 3
 const fetchConnectionsFromStorage = async (data) => {
@@ -183,20 +186,10 @@ const fetchConnectionsFromStorage = async (data) => {
     return { pattern, solutions, meanings };
     
 };
-
-// Step 2
-function backend(pageNumber){
-    showGridLoading(true);
-
-    console.log("fetchConnectionsFromStorage: ",'gemma-' + pageNumber);
-    var data = getFromLocalStorage('gemma-' + pageNumber);
-    if (!data) {
-        gamecount++; //global variable to keep track of the number of games played, ref games.js
-        const fileName = 'json/gemma-'+ gamecount +'.txt';
-        fetchFromLLM(fileName);
-    }
+function gameRefresh(pageNumber){
     console.log("Retry fetchConnectionsFromStorage: ",'gemma-' + pageNumber);
-    data = JSON.parse(cleanJson(getFromLocalStorage('gemma-' + pageNumber).toLowerCase()));
+    data =JSON.parse(getFromLocalStorage('gemma-' + pageNumber));
+    //console.log("Data:", data);
     if(data && data.connections && data.connections.length > 0)
     {
         fetchConnectionsFromStorage(data.connections).then(result => {
@@ -218,6 +211,28 @@ function backend(pageNumber){
             console.error('Error:', error);
         });
     }
+}
+// Step 2
+function backend(pageNumber){
+    showGridLoading(true);
+
+    console.log("fetchConnectionsFromStorage: ",'gemma-' + pageNumber);
+    var data = getFromLocalStorage('gemma-' + pageNumber);
+    if (!data) {
+        gamecount++; //global variable to keep track of the number of games played, ref games.js
+        const fileName = 'json/gemma-'+ gamecount +'.txt';
+        fetchConnectionsFromGemma(fileName).then((gemmaresponse) => {
+            saveToLocalStorage('gemma-' + gamecount,gemmaresponse);
+            console.log('Data fetched from Gemma!',gamecount);
+            gameRefresh(pageNumber);
+        }).catch(error => {
+            console.error('Error:', error);
+        }); 
+    }
+    else{
+        gameRefresh(pageNumber);
+    }
+    
 
 }
 // Step 1

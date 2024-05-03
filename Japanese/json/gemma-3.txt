@@ -12,8 +12,8 @@
         },
         {
             "Pattern": "asking for directions",
-            "Japanese": "すみません,______はどこですか？,_____への行き方を教えてください",
-            "English": "Excuse me, where is ____, please tell me how to get to ____"
+            "Japanese": "すみません,______はどこですか？,_____への行き方を教えてください,すみません",
+            "English": "Excuse me, where is ____, please tell me how to get to ____,Excuse me"
         },
         {
             "Pattern": "ordering food",
