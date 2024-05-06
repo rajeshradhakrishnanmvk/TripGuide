@@ -1,0 +1,40 @@
+{
+  "connections": [
+    {
+      "pattern": "Greetings",
+      "Japanese": "こんにちは, さようなら, おはよう, こんばんわ",
+      "english": "Hello, Goodbye, Good morning, Good evening"
+    },
+    {
+      "pattern": "Introductions",
+      "Japanese": "はじめまして, わたしは, どうぞよろしく",
+      "english": "Nice to meet you, I am, Please to meet you"
+    }
+  ],
+  "conversation": [
+    {
+      "speaker": "せんせい",
+      "Japanese": "こんにちは、今日は挨拶と自己紹介について学びます。",
+      "Romaji": "konnichiwa, kyou wa aisatsu to jikoshoukai ni tsuite manabimasu.",
+      "english": "Hello, today we will learn about greetings and introductions."
+    },
+    {
+      "speaker": "がくせい",
+      "Japanese": "はじめましての挨拶方法を知りたいです。",
+      "Romaji": "hajimemashite no aisatsu houhou wo shiritai desu.",
+      "english": "I want to know how to greet people when first meeting."
+    },
+    {
+      "speaker": "せんせい",
+      "Japanese": "そうですね、まずは基本的な挨拶から始めましょう。自己紹介も重要ですから覚えましょう。",
+      "Romaji": "soudesu ne, mazu wa kihonteki na aisatsu kara hajimemashou. jikoshoukai mo juuyou desu kara oboemashou.",
+      "english": "Right, let's start with the basic greetings first. Introductions are also important, so let's remember them."
+    },
+    {
+      "speaker": "がくせい",
+      "Japanese": "わかりました。楽しく学ぶことができるといいです。",
+      "Romaji": "wakarimashita. tanoshiku manabu koto ga dekiru to ii desu.",
+      "english": "Understood. It would be great to learn in a fun way."
+    }
+  ]
+}
