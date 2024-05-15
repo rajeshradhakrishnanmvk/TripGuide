@@ -1,0 +1,45 @@
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.TextToImage;
+
+var (useAzureOpenAI, model, azureEndpoint, apiKey, orgId) = Settings.LoadFromFile();
+var config = new ConfigurationBuilder()
+                                    .AddInMemoryCollection(new Dictionary<string, string>
+                                    {
+                                        { "OpenAI:Model", model },
+                                        { "OpenAI:ApiKey", apiKey },
+                                        { "OpenAI:OrgId", orgId }
+                                    })
+                                    .Build();
+
+var builder = Kernel.CreateBuilder();
+#pragma warning disable SKEXP0010 
+builder.AddOpenAITextToImage(apiKey=config["OpenAI:ApiKey"]);
+builder.AddOpenAIChatCompletion(model=config["OpenAI:Model"]
+                                ,apiKey=config["OpenAI:ApiKey"]
+                                ,orgId=config["OpenAI:OrgId"]);
+
+var kernel = builder.Build();
+#pragma warning disable SKEXP0001
+ITextToImageService dallE = kernel.GetRequiredService<ITextToImageService>();
+
+var imageDescription = "a black and white image conversation between a new neighbour introducing himself to a woman and offering a cup of coffee.";
+var image = await dallE.GenerateImageAsync(imageDescription, 256, 256);
+
+Console.WriteLine(imageDescription);
+Console.WriteLine("Image URL: " + image);
+// // Generate the image
+// string imageUrl = await textToImageService.GenerateImageAsync("""
+//     A postal card with an happy hiker waving and a beautiful mountain in the background.
+//     There is a trail visible in the foreground.
+//     The postal card has text in red saying: 'You are invited for a hike!'
+//     """, 1024, 1024);
+// Console.WriteLine($"The generated image is ready at:\n{imageUrl}");
+
+//a black and white conversation about a woman asking to explain the function of a ATM machine to bank employee
+//Image URL: https://oaidalleapiprodscus.blob.core.windows.net/private/org-2c49kBS4eCTpucaFWB1mMOpD/user-Z5qO9L4z73SzcArvLzAK2jEp/img-xeUMGw5A6YhoWuMuKHVskACT.png?st=2024-05-09T07%3A24%3A52Z&se=2024-05-09T09%3A24%3A52Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-05-08T22%3A34%3A44Z&ske=2024-05-09T22%3A34%3A44Z&sks=b&skv=2021-08-06&sig=nLGLtA3YroITM9G/7%2B49%2BsEs4kcCFaV6FAFs9jgATes%3D

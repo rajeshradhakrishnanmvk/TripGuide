@@ -1,0 +1,27 @@
+﻿// 01 - using
+using Microsoft.SemanticKernel;
+using hippocampus.HttpClient;
+
+
+// 02 - create custom http client
+var customHttpMessageHandler = new CustomHttpMessageHandler();
+customHttpMessageHandler.CustomLLMUrl = "http://localhost:1234"; //"http://localhost:11434";
+HttpClient client = new HttpClient(customHttpMessageHandler);
+//var builder = Kernel.CreateBuilder();
+
+// 19 - create a kernel with custom http client
+// 1 - create kernel with custom http client
+#pragma warning disable SKEXP0010
+var builder = Kernel.CreateBuilder();
+//builder.AddOpenAIChatCompletion("v1", "lm-studio", httpClient:client);
+builder.AddOpenAIChatCompletion("gemma"
+                                ,endpoint: new Uri("http://localhost:1234")
+                                , "api-key");
+var kernel = builder.Build();
+
+
+//03 - invoke a simple prompt to the chat service
+string prompt = "what is the japanese of Good morning and hello again."; //しあさって また おあいしましょう
+var response = await kernel.InvokePromptAsync(prompt);
+Console.WriteLine(response);
+
